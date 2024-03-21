@@ -1,3 +1,4 @@
+// @ts-ignore
 import { VNode, defineComponent } from 'vue';
 
 interface ClassList {
@@ -65,6 +66,7 @@ interface MultiselectProps {
   resolveOnLoad?: boolean;
   appendNewTag?: boolean;
   appendNewOption?: boolean;
+  isFloatingPlaceholder?: boolean;
   createTag?: boolean;
   createOption?: boolean;
   addTagOn?: string[];
@@ -115,6 +117,7 @@ declare class Multiselect implements ReturnType<typeof defineComponent> {
   trackBy: MultiselectProps['trackBy'];
   label: MultiselectProps['label'];
   placeholder: MultiselectProps['placeholder'];
+  isFloatingPlaceholder: MultiselectProps['isFloatingPlaceholder'];
   multipleLabel: MultiselectProps['multipleLabel'];
   disabled: MultiselectProps['disabled'];
   max: MultiselectProps['max'];

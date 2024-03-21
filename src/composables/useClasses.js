@@ -1,9 +1,9 @@
 import { computed, toRefs } from 'vue'
 
 export default function useClasses (props, context, dependencies)
-{const { 
-    classes: classes_, disabled, showOptions, breakTags
-  } = toRefs(props)
+{const {
+  classes: classes_, disabled, showOptions, breakTags, isFloatingPlaceholder
+} = toRefs(props)
 
   // ============ DEPENDENCIES ============
 
@@ -51,6 +51,7 @@ export default function useClasses (props, context, dependencies)
     dropdown: 'multiselect-dropdown',
     dropdownTop: 'is-top',
     dropdownHidden: 'is-hidden',
+    placeholderAsLabel: 'multiselect-placeholder--as-label',
     options: 'multiselect-options',
     optionsTop: 'is-top',
     group: 'multiselect-group',
@@ -85,10 +86,10 @@ export default function useClasses (props, context, dependencies)
 
     return {
       container: [c.container]
-        .concat(disabled.value ? c.containerDisabled : [])
-        .concat(showDropdown.value && placement.value === 'top'  ? c.containerOpenTop : [])
-        .concat(showDropdown.value && placement.value !== 'top' ? c.containerOpen : [])
-        .concat(isActive.value ? c.containerActive : []),
+          .concat(disabled.value ? c.containerDisabled : [])
+          .concat(showDropdown.value && placement.value === 'top'  ? c.containerOpenTop : [])
+          .concat(showDropdown.value && placement.value !== 'top' ? c.containerOpen : [])
+          .concat(isActive.value ? c.containerActive : []),
       wrapper: c.wrapper,
       spacer: c.spacer,
       singleLabel: c.singleLabel,
@@ -97,7 +98,7 @@ export default function useClasses (props, context, dependencies)
       search: c.search,
       tags: c.tags,
       tag: [c.tag]
-        .concat(disabled.value ? c.tagDisabled : []),
+          .concat(disabled.value ? c.tagDisabled : []),
       tagWrapper: [c.tagWrapper, breakTags.value ? c.tagWrapperBreak : null],
       tagDisabled: c.tagDisabled,
       tagRemove: c.tagRemove,
@@ -105,19 +106,20 @@ export default function useClasses (props, context, dependencies)
       tagsSearchWrapper: c.tagsSearchWrapper,
       tagsSearch: c.tagsSearch,
       tagsSearchCopy: c.tagsSearchCopy,
-      placeholder: c.placeholder,
+      placeholder: [c.placeholder]
+          .concat(isFloatingPlaceholder.value ? c.placeholderAsLabel : []),
       caret: [c.caret]
-        .concat(isOpen.value ? c.caretOpen : []),
+          .concat(isOpen.value ? c.caretOpen : []),
       clear: c.clear,
       clearIcon: c.clearIcon,
       spinner: c.spinner,
       inifinite: c.inifinite,
       inifiniteSpinner: c.inifiniteSpinner,
       dropdown: [c.dropdown]
-        .concat(placement.value === 'top' ? c.dropdownTop : [])
-        .concat(!isOpen.value || !showOptions.value || !showDropdown.value ? c.dropdownHidden : []),
+          .concat(placement.value === 'top' ? c.dropdownTop : [])
+          .concat(!isOpen.value || !showOptions.value || !showDropdown.value ? c.dropdownHidden : []),
       options: [c.options]
-        .concat(placement.value === 'top' ? c.optionsTop : []),
+          .concat(placement.value === 'top' ? c.optionsTop : []),
       group: c.group,
       groupLabel: (g) => {
         let groupLabel = [c.groupLabel]
