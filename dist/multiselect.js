@@ -3509,6 +3509,7 @@ function useClasses (props, context, dependencies)
 
   const classes = computed(() => ({
     container: 'multiselect',
+    containerWithFloatingPlaceholder: 'multiselect--with-floating-placeholder',
     containerDisabled: 'is-disabled',
     containerOpen: 'is-open',
     containerOpenTop: 'is-open-top',
@@ -3579,7 +3580,8 @@ function useClasses (props, context, dependencies)
         .concat(showDropdown.value && placement.value === 'top'  ? c.containerOpenTop : [])
         .concat(showDropdown.value && placement.value !== 'top' ? c.containerOpen : [])
         .concat(isActive.value ? c.containerActive : [])
-        .concat(hasSelected.value ? c.filled : []),
+        .concat(hasSelected.value ? c.filled : [])
+        .concat(isFloatingPlaceholder.value ? c.containerWithFloatingPlaceholder : []),
       wrapper: c.wrapper,
       spacer: c.spacer,
       singleLabel: c.singleLabel,
