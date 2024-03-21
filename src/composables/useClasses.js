@@ -2,8 +2,8 @@ import { computed, toRefs } from 'vue'
 
 export default function useClasses (props, context, dependencies)
 {const {
-  classes: classes_, disabled, showOptions, breakTags, isFloatingPlaceholder
-} = toRefs(props)
+    classes: classes_, disabled, showOptions, breakTags, isFloatingPlaceholder
+  } = toRefs(props)
 
   // ============ DEPENDENCIES ============
 
@@ -11,6 +11,7 @@ export default function useClasses (props, context, dependencies)
   const isPointed = dependencies.isPointed
   const isSelected = dependencies.isSelected
   const isDisabled = dependencies.isDisabled
+  const hasSelected = dependencies.hasSelected
   const isActive = dependencies.isActive
   const canPointGroups = dependencies.canPointGroups
   const resolving = dependencies.resolving
@@ -26,6 +27,7 @@ export default function useClasses (props, context, dependencies)
     containerOpenTop: 'is-open-top',
     containerActive: 'is-active',
     wrapper: 'multiselect-wrapper',
+    filled: 'multiselect-wrapper--filled',
     singleLabel: 'multiselect-single-label',
     singleLabelText: 'multiselect-single-label-text',
     multipleLabel: 'multiselect-multiple-label',
@@ -86,10 +88,11 @@ export default function useClasses (props, context, dependencies)
 
     return {
       container: [c.container]
-          .concat(disabled.value ? c.containerDisabled : [])
-          .concat(showDropdown.value && placement.value === 'top'  ? c.containerOpenTop : [])
-          .concat(showDropdown.value && placement.value !== 'top' ? c.containerOpen : [])
-          .concat(isActive.value ? c.containerActive : []),
+        .concat(disabled.value ? c.containerDisabled : [])
+        .concat(showDropdown.value && placement.value === 'top'  ? c.containerOpenTop : [])
+        .concat(showDropdown.value && placement.value !== 'top' ? c.containerOpen : [])
+        .concat(isActive.value ? c.containerActive : [])
+        .concat(hasSelected.value ? c.filled : []),
       wrapper: c.wrapper,
       spacer: c.spacer,
       singleLabel: c.singleLabel,
@@ -98,7 +101,7 @@ export default function useClasses (props, context, dependencies)
       search: c.search,
       tags: c.tags,
       tag: [c.tag]
-          .concat(disabled.value ? c.tagDisabled : []),
+        .concat(disabled.value ? c.tagDisabled : []),
       tagWrapper: [c.tagWrapper, breakTags.value ? c.tagWrapperBreak : null],
       tagDisabled: c.tagDisabled,
       tagRemove: c.tagRemove,
@@ -109,17 +112,17 @@ export default function useClasses (props, context, dependencies)
       placeholder: [c.placeholder]
           .concat(isFloatingPlaceholder.value ? c.placeholderAsLabel : []),
       caret: [c.caret]
-          .concat(isOpen.value ? c.caretOpen : []),
+        .concat(isOpen.value ? c.caretOpen : []),
       clear: c.clear,
       clearIcon: c.clearIcon,
       spinner: c.spinner,
       inifinite: c.inifinite,
       inifiniteSpinner: c.inifiniteSpinner,
       dropdown: [c.dropdown]
-          .concat(placement.value === 'top' ? c.dropdownTop : [])
-          .concat(!isOpen.value || !showOptions.value || !showDropdown.value ? c.dropdownHidden : []),
+        .concat(placement.value === 'top' ? c.dropdownTop : [])
+        .concat(!isOpen.value || !showOptions.value || !showDropdown.value ? c.dropdownHidden : []),
       options: [c.options]
-          .concat(placement.value === 'top' ? c.optionsTop : []),
+        .concat(placement.value === 'top' ? c.optionsTop : []),
       group: c.group,
       groupLabel: (g) => {
         let groupLabel = [c.groupLabel]
